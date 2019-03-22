@@ -9,7 +9,7 @@ requirements:
   SubworkflowFeatureRequirement: {}
   SchemaDefRequirement:
     types:
-      - $import: ../types/FASTQReadPairType.yml
+      - $import: types/FASTQReadPairType.yml
 inputs:
   # Intervals should come from capture kit (target intervals) bed format
   target_intervals: File[]?
@@ -18,7 +18,7 @@ inputs:
   interval_padding: int?
   # Named read pair in FASTQ format
   read_pair:
-    type: ../types/FASTQReadPairType.yml#FASTQReadPairType
+    type: types/FASTQReadPairType.yml#FASTQReadPairType
   # reference genome, fasta
   reference_genome:
     type: File
@@ -74,7 +74,7 @@ outputs:
     doc: "Variants from HaplotypeCaller"
 steps:
   prepare_reference_data:
-    run: ../subworkflows/exomeseq-00-prepare-reference-data.cwl
+    run: subworkflows/exomeseq-00-prepare-reference-data.cwl
     in:
       target_intervals: target_intervals
       bait_intervals: bait_intervals
@@ -83,7 +83,7 @@ steps:
       - target_interval_list
       - bait_interval_list
   preprocessing:
-    run: ../subworkflows/exomeseq-gatk4-01-preprocessing.cwl
+    run: subworkflows/exomeseq-gatk4-01-preprocessing.cwl
     in:
       intervals: target_intervals
       interval_padding: interval_padding

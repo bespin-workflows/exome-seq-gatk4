@@ -9,11 +9,11 @@ requirements:
   - class: SubworkflowFeatureRequirement
   - class: SchemaDefRequirement
     types:
-    - $import: ../types/ExomeseqStudyType.yml
-    - $import: ../types/FASTQReadPairType.yml
+    - $import: types/ExomeseqStudyType.yml
+    - $import: types/FASTQReadPairType.yml
 inputs:
   study_type:
-    type: ../types/ExomeseqStudyType.yml#ExomeseqStudyType
+    type: types/ExomeseqStudyType.yml#ExomeseqStudyType
   # Intervals should come from capture kit (target intervals) bed format
   target_intervals: File[]?
   # Intervals should come from capture kit (bait intervals) bed format
@@ -23,7 +23,7 @@ inputs:
   read_pairs:
       type:
         type: array
-        items: ../types/FASTQReadPairType.yml#FASTQReadPairType
+        items: types/FASTQReadPairType.yml#FASTQReadPairType
   # reference genome, fasta
   reference_genome:
     type: File
@@ -103,7 +103,7 @@ outputs:
     outputSource: variant_discovery/summary_metrics
 steps:
   prepare_reference_data:
-    run: ../subworkflows/exomeseq-00-prepare-reference-data.cwl
+    run: subworkflows/exomeseq-00-prepare-reference-data.cwl
     in:
       target_intervals: target_intervals
       bait_intervals: bait_intervals
@@ -112,7 +112,7 @@ steps:
       - target_interval_list
       - bait_interval_list
   preprocessing:
-    run: ../subworkflows/exomeseq-gatk4-01-preprocessing.cwl
+    run: subworkflows/exomeseq-gatk4-01-preprocessing.cwl
     scatter: read_pair
     in:
       intervals: target_intervals
@@ -135,7 +135,7 @@ steps:
       - raw_variants
       - haplotypes_bam
   variant_discovery:
-    run: ../subworkflows/exomeseq-gatk4-02-variantdiscovery.cwl
+    run: subworkflows/exomeseq-gatk4-02-variantdiscovery.cwl
     in:
       study_type: study_type
       name: library
@@ -159,7 +159,7 @@ steps:
       - detail_metrics
       - summary_metrics
   organize_directories:
-    run: ../subworkflows/exomeseq-gatk4-03-organizedirectories.cwl
+    run: subworkflows/exomeseq-gatk4-03-organizedirectories.cwl
     in:
       fastqc_reports: preprocessing/fastqc_reports
       trim_reports: preprocessing/trim_reports

@@ -85,7 +85,7 @@ steps:
       - indels_recalibrated_variants_filename
       - combined_recalibrated_variants_filename
   joint_genotyping:
-    run: ../tools/GATK4-GenotypeGVCFs.cwl
+    run: ../tools/GATK4/GATK4-GenotypeGVCFs.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2
@@ -120,7 +120,7 @@ steps:
     out:
       - annotations
   variant_recalibration_indels:
-    run: ../tools/GATK4-VariantRecalibrator.cwl
+    run: ../tools/GATK4/GATK4-VariantRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2
@@ -141,7 +141,7 @@ steps:
       - output_recalibration
       - output_tranches
   variant_recalibration_snps:
-    run: ../tools/GATK4-VariantRecalibrator.cwl
+    run: ../tools/GATK4/GATK4-VariantRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2
@@ -164,7 +164,7 @@ steps:
       - output_recalibration
       - output_tranches
   apply_vqsr_indels:
-    run: ../tools/GATK4-ApplyVQSR.cwl
+    run: ../tools/GATK4/GATK4-ApplyVQSR.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 1
@@ -181,7 +181,7 @@ steps:
     out:
       - output_recalibrated_variants
   apply_vqsr_snps:
-    run: ../tools/GATK4-ApplyVQSR.cwl
+    run: ../tools/GATK4/GATK4-ApplyVQSR.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 1
@@ -212,7 +212,7 @@ steps:
     out:
       - extracted
   collect_metrics:
-    run: ../tools/GATK4-CollectVariantCallingMetrics.cwl
+    run: ../tools/GATK4/GATK4-CollectVariantCallingMetrics.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2

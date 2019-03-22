@@ -74,7 +74,7 @@ outputs:
     doc: "Variants from HaplotypeCaller"
 steps:
   prepare_reference_data:
-    run: subworkflows/exomeseq-00-prepare-reference-data.cwl
+    run: subworkflows/exomeseq-gatk4-00-prepare-reference-data.cwl
     in:
       target_intervals: target_intervals
       bait_intervals: bait_intervals

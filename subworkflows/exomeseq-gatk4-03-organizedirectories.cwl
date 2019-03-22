@@ -28,7 +28,7 @@ outputs:
     outputSource: org_bams_recalibrated/outdir
 steps:
   org_fastqc_reports:
-    run: ../tools/file-pairs-to-directory.cwl
+    run: ../utils/file-pairs-to-directory.cwl
     in:
       name:
         default: 'fastqc-reports'
@@ -36,7 +36,7 @@ steps:
     out:
       - outdir
   org_trim_reports:
-    run: ../tools/file-pairs-to-directory.cwl
+    run: ../utils/file-pairs-to-directory.cwl
     in:
       name:
         default: 'trim-reports'
@@ -44,7 +44,7 @@ steps:
     out:
       - outdir
   org_bams_markduplicates:
-    run: ../tools/files-to-directory.cwl
+    run: ../utils/files-to-directory.cwl
     in:
       name:
         default: 'bams-markduplicates'
@@ -52,7 +52,7 @@ steps:
     out:
       - outdir
   org_raw_variants:
-    run: ../tools/files-to-directory.cwl
+    run: ../utils/files-to-directory.cwl
     in:
       name:
         default: 'gvcfs'
@@ -60,7 +60,7 @@ steps:
     out:
       - outdir
   org_bams_recalibrated:
-    run: ../tools/files-to-directory.cwl
+    run: ../utils/files-to-directory.cwl
     in:
       name:
         default: 'bams-recalibrated'

@@ -72,7 +72,7 @@ outputs:
     outputSource: collect_metrics/output_summary_metrics
 steps:
   generate_joint_filenames:
-    run: ../tools/generate-joint-filenames-gatk4.cwl
+    run: ../utils/generate-joint-filenames-gatk4.cwl
     in:
       name: name
     out:
@@ -104,7 +104,7 @@ steps:
     out:
       - output_vcf
   generate_annotations_indels:
-    run: ../tools/generate-variant-recalibration-annotation-set.cwl
+    run: ../utils/generate-variant-recalibration-annotation-set.cwl
     in:
       study_type: study_type
       base_annotations:
@@ -112,7 +112,7 @@ steps:
     out:
       - annotations
   generate_annotations_snps:
-    run: ../tools/generate-variant-recalibration-annotation-set.cwl
+    run: ../utils/generate-variant-recalibration-annotation-set.cwl
     in:
       study_type: study_type
       base_annotations:
@@ -198,14 +198,14 @@ steps:
     out:
       - output_recalibrated_variants
   extract_sequence_dict:
-    run: ../tools/extract-secondary-file.cwl
+    run: ../utils/extract-secondary-file.cwl
     in:
       file: reference_genome
       pattern: { default: '.dict'}
     out:
       - extracted
   extract_intervals_file:
-    run: ../tools/extract-array-file.cwl
+    run: ../utils/extract-array-file.cwl
     in:
       files: intervals
       index: { default: 0 }

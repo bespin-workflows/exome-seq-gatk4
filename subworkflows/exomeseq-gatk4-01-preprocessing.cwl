@@ -123,7 +123,7 @@ steps:
     out:
       - output
   sort:
-    run: ../tools/GATK4-SortSam.cwl
+    run: ../tools/GATK4/GATK4-SortSam.cwl
     requirements:
       - class: ResourceRequirement
         ramMin: 5000
@@ -135,7 +135,7 @@ steps:
     out:
       - output_sorted_bam
   mark_duplicates:
-    run: ../tools/GATK4-MarkDuplicates.cwl
+    run: ../tools/GATK4/GATK4-MarkDuplicates.cwl
     requirements:
       - class: ResourceRequirement
         ramMin: 7000
@@ -166,7 +166,7 @@ steps:
       - output_fixed_tags_bam
   # Now recalibrate
   recalibrate_01_analyze:
-    run: ../tools/GATK4-BaseRecalibrator.cwl
+    run: ../tools/GATK4/GATK4-BaseRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
         ramMin: 6000
@@ -181,7 +181,7 @@ steps:
     out:
       - output_recalibration_report
   recalibrate_02_apply_bqsr:
-    run: ../tools/GATK4-ApplyBQSR.cwl
+    run: ../tools/GATK4/GATK4-ApplyBQSR.cwl
     requirements:
       - class: ResourceRequirement
         ramMin: 3500

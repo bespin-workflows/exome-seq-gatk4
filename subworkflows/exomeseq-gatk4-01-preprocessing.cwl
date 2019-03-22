@@ -47,7 +47,7 @@ outputs:
 
 steps:
   file_pair_details:
-    run: ../tools/extract-named-file-pair-details.cwl
+    run: ../utils/extract-named-file-pair-details.cwl
     in:
        read_pair: read_pair
        library: library
@@ -57,7 +57,7 @@ steps:
        - read_pair_name
        - read_group_header
   generate_sample_filenames:
-    run: ../tools/generate-sample-filenames.cwl
+    run: ../utils/generate-sample-filenames.cwl
     in:
       sample_name: file_pair_details/read_pair_name
     out:

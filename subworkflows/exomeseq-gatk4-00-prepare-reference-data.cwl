@@ -26,7 +26,7 @@ outputs:
     outputSource: make_bait_interval_list/output_interval_list_file
 steps:
   make_target_interval_list:
-    run: ../tools/picard-BedToIntervalList.cwl
+    run: ../tools/picard/picard-BedToIntervalList.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 1
@@ -39,7 +39,7 @@ steps:
     out:
       - output_interval_list_file
   make_bait_interval_list:
-    run: ../tools/picard-BedToIntervalList.cwl
+    run: ../tools/picard/picard-BedToIntervalList.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 1

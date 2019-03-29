@@ -153,7 +153,7 @@ steps:
       - output_dedup_bam_file
       - output_metrics_file
   fixtags:
-    run: ../tools/GATK4-SetNmAndUqTags.cwl # what does this do?
+    run: ../tools/GATK4/GATK4-SetNmAndUqTags.cwl # what does this do?
     requirements:
       - class: ResourceRequirement
         ramMin: 1000

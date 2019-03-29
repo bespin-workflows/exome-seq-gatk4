@@ -11,12 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of exomeseq-gatk4.cwl variant calling workflow
+- Initial release of exomeseq-gatk4.cwl variant calling workflow, migrated from exomeseq-gatk4.cwl in [bespin-cwl v0.9.5](https://github.com/Duke-GCB/bespin-cwl/releases/tag/v0.9.5)
 - Adds JSON tool examples for several of the GATK4 tools (with embedded file contents)
 
 ### Changed
 
-- Adds HaplotypeCaller step to exomeseq-gatk4-preprocessing workflow
+- Adds HaplotypeCaller step to exomeseq-gatk4-preprocessing workflow, migrated from exomeseq-gatk4-preprocessing.cwl in [bespin-cwl v0.9.5](https://github.com/Duke-GCB/bespin-cwl/releases/tag/v0.9.5)
 - Removes unnecessary steps in preprocessing
 - Moves custom CWL types into individual files
 - Optimizes the concat-gz-files step to skip recompression on single files

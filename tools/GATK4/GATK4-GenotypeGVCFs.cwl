@@ -45,7 +45,7 @@ inputs:
   only_output_calls_starting_in_intervals:
     type: boolean?
     inputBinding:
-      prefix: --only_output_calls_starting_in_intervals
+      prefix: --only-output-calls-starting-in-intervals
     doc: "Restrict variant output to sites that start within provided intervals  Default value: false."
   use_new_qual_calculator:
     type: boolean?

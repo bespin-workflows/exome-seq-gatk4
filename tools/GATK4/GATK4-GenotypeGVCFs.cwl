@@ -53,14 +53,11 @@ inputs:
       prefix: --use-new-qual-calculator
     doc: "If provided, we will use the new AF model instead of the so-called exact model  Default value: false."
   variants:
-    type:
-      type: array
-      items: File
-      inputBinding:
-        prefix: -V
+    type: File
     inputBinding:
+      prefix: -V
       position: 2
-    doc: "One or more VCF files containing variants  Required."
+    doc: "One VCF file containing variants  Required."
   intervals:
     type:
     - 'null'

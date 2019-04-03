@@ -84,6 +84,18 @@ steps:
       - indels_tranches_filename
       - indels_recalibrated_variants_filename
       - combined_recalibrated_variants_filename
+  combine_variants:
+    run: ../tools/GATK4/GATK4-CombineGVCFs.cwl
+    requirements:
+      - class: ResourceRequirement
+        coresMin: 2
+        ramMin: 10240
+    in:
+      reference: reference_genome
+      output_vcf_filename: generate_joint_filenames/raw_variants_filename
+      variants: raw_variants
+    out:
+      - output_vcf
   joint_genotyping:
     run: ../tools/GATK4/GATK4-GenotypeGVCFs.cwl
     requirements:
@@ -97,7 +109,7 @@ steps:
       annotation_groups: { default: ['StandardAnnotation','AS_StandardAnnotation'] }
       only_output_calls_starting_in_intervals: { default: true }
       use_new_qual_calculator: { default: true }
-      variants: raw_variants
+      variants: combine_variants/output_vcf
       intervals: intervals
       interval_padding: interval_padding
       java_opt: { default: "-Xmx5g -Xms5g" }

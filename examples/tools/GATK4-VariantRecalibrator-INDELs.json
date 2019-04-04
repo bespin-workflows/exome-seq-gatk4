@@ -22,7 +22,7 @@
       "training": true,
       "truth": true,
       "prior": 12,
-      "file": { "basename": "mills.vcf", "class": "File", "contents": "mills" }
+      "filepath": "mills.vcf"
     },
     {
       "name": "axiomPoly",
@@ -30,7 +30,7 @@
       "training": true,
       "truth": false,
       "prior": 10,
-      "file": { "basename": "axiomPoly.vcf", "class": "File", "contents": "axiomPoly" }
+      "filepath": "axiomPoly.vcf"
     },
     {
       "name": "dbsnp",
@@ -38,7 +38,7 @@
       "training": false,
       "truth": false,
       "prior":2,
-      "file": { "basename": "dbSNP.vcf", "class": "File", "contents": "dbSNP" }
+      "filepath": "dbSNP.vcf"
     }
   ]
 

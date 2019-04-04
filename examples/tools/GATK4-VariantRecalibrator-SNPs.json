@@ -22,7 +22,7 @@
       "training": true,
       "truth": true,
       "prior":15,
-      "file": { "basename": "hapmap.vcf", "class": "File", "contents": "hapmap" }
+      "filepath": "hapmap.vcf"
     },
     {
       "name": "omni",
@@ -30,7 +30,7 @@
       "training": true,
       "truth": true,
       "prior":12,
-      "file": { "basename": "omni.vcf", "class": "File", "contents": "omni" }
+      "filepath": "omni.vcf"
     },
     {
       "name": "1000G",
@@ -38,7 +38,7 @@
       "training": true,
       "truth": false,
       "prior":10,
-      "file": { "basename": "1000genomes.vcf", "class": "File", "contents": "1000genomes" }
+      "filepath": "1000genomes.vcf"
     },
     {
       "name": "dbsnp",
@@ -46,7 +46,7 @@
       "training": false,
       "truth": false,
       "prior":7,
-      "file": { "basename": "dbSNP.vcf", "class": "File", "contents": "dbSNP" }
+      "filepath": "dbSNP.vcf"
     }
   ]
 

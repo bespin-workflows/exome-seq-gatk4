@@ -80,7 +80,7 @@ inputs:
           training: { type: boolean }
           truth: { type: boolean }
           prior: { type: int }
-          file: { type: File }
+          filepath: { type: string }
       inputBinding:
         prefix: '-resource'
         valueFrom: >
@@ -91,7 +91,7 @@ inputs:
               ',training=' + (resource.training ? 'true' : 'false') +
               ',truth=' + (resource.truth ? 'true' : 'false') +
               ',prior=' + resource.prior +
-              ':' + resource.file.path;
+              ':' + resource.filepath;
             }
             return makeResourceLine(self);
           }

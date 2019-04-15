@@ -3,7 +3,8 @@
 cwlVersion: v1.0
 class: CommandLineTool
 requirements:
-  $import: GATK4-requirements.yml
+  - $import: GATK4-docker-requirements.yml
+  - class: InlineJavascriptRequirement
 hints:
   - $import: GATK4-hints.yml
 baseCommand: gatk

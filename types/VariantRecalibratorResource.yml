@@ -1,0 +1,15 @@
+type: record
+name: VariantRecalibratorResource
+fields:
+  - name: name
+    type: string
+  - name: known
+    type: boolean
+  - name: training
+    type: boolean
+  - name: truth
+    type: boolean
+  - name: prior
+    type: int
+  - name: file
+    type: File

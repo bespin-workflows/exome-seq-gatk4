@@ -147,8 +147,8 @@ steps:
       mode: { default: "SNP" }
       resources:
         default:
-          - { name: "mills", known: false, training: true, truth: true, prior: 12, filepath: indel_resource_mills.path }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 2, filepath: resource_dbsnp.path }
+          - { name: "mills", known: false, training: true, truth: true, prior: 12, file: indel_resource_mills }
+          - { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: resource_dbsnp }
     out:
       - output_recalibration
       - output_tranches
@@ -168,10 +168,10 @@ steps:
       mode: { default: "SNP" }
       resources:
         default:
-          - { name: "hapmap", known: false, training: true, truth: true, prior: 15, filepath: snp_resource_hapmap.path }
-          - { name: "omni", known: false, training: true, truth: true, prior: 12, filepath: snp_resource_omni.path }
-          - { name: "1000G", known: false, training: true, truth: false, prior: 10, filepath: snp_resource_1kg.path }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 7, filepath: resource_dbsnp.path }
+          - { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: snp_resource_hapmap }
+          - { name: "omni", known: false, training: true, truth: true, prior: 12, file: snp_resource_omni }
+          - { name: "1000G", known: false, training: true, truth: false, prior: 10, file: snp_resource_1kg }
+          - { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: resource_dbsnp }
     out:
       - output_recalibration
       - output_tranches

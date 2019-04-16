@@ -3,11 +3,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 requirements:
-  - $import: GATK4-docker-requirements.yml
-  - class: InlineJavascriptRequirement
-  - class: SchemaDefRequirement
-    types:
-    - $import: ../../types/VariantRecalibratorResource.yml
+  $import: GATK4-requirements.yml
 hints:
   - $import: GATK4-hints.yml
 baseCommand: gatk
@@ -75,7 +71,16 @@ inputs:
       position: 9
     type:
       type: array
-      items: ../../types/VariantRecalibratorResource.yml#VariantRecalibratorResource
+      items:
+        type: record
+        name: resource
+        fields:
+          name: { type: string }
+          known: { type: boolean }
+          training: { type: boolean }
+          truth: { type: boolean }
+          prior: { type: int }
+          file: { type: File }
       inputBinding:
         prefix: '-resource'
         valueFrom: >

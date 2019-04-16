@@ -10,7 +10,6 @@ requirements:
     types:
     - $import: types/ExomeseqStudyType.yml
     - $import: types/FASTQReadPairType.yml
-    - $import: types/VariantRecalibratorResource.yml
 inputs:
   study_type:
     type: types/ExomeseqStudyType.yml#ExomeseqStudyType
@@ -46,18 +45,29 @@ inputs:
     type: File[] # vcf files of known sites, with indexing
     secondaryFiles:
     - .idx
+  # Variant Recalibration - SNPs
+  snp_resource_hapmap:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_omni:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_1kg:
+    type: File
+    secondaryFiles:
+      - .idx
+  # Variant Recalibration - Common
   resource_dbsnp:
     type: File
     secondaryFiles:
     - .idx
-  var_recal_indels_resources:
-    type:
-      type: array
-      items: types/VariantRecalibratorResource.yml#VariantRecalibratorResource
-  var_recal_snps_resources:
-    type:
-      type: array
-      items: types/VariantRecalibratorResource.yml#VariantRecalibratorResource
+  # Variant Recalibration - Indels
+  indel_resource_mills:
+    type: File
+    secondaryFiles:
+    - .idx
 outputs:
   fastqc_reports_dir:
     type: Directory
@@ -132,9 +142,11 @@ steps:
       interval_padding: interval_padding
       raw_variants: preprocessing/raw_variants
       reference_genome: reference_genome
+      snp_resource_hapmap: snp_resource_hapmap
+      snp_resource_omni: snp_resource_omni
+      snp_resource_1kg: snp_resource_1kg
       resource_dbsnp: resource_dbsnp
-      var_recal_indels_resources: var_recal_indels_resources
-      var_recal_snps_resources: var_recal_snps_resources
+      indel_resource_mills: indel_resource_mills
     out:
       - joint_raw_variants
       - variant_recalibration_snps_tranches

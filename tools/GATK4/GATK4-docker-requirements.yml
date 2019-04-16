@@ -1,2 +1,0 @@
-class: DockerRequirement
-dockerPull: broadinstitute/gatk:4.0.4.0

@@ -6,7 +6,6 @@ requirements:
   SchemaDefRequirement:
     types:
       - $import: ../types/ExomeseqStudyType.yml
-      - $import: ../types/VariantRecalibratorResource.yml
 inputs:
   study_type:
     type: ../types/ExomeseqStudyType.yml#ExomeseqStudyType
@@ -25,19 +24,17 @@ inputs:
     - .sa
     - .fai
     - ^.dict
+  # Variant Recalibration - SNPs
+  snp_resource_hapmap: File
+  snp_resource_omni: File
+  snp_resource_1kg: File
+  # Variant Recalibration - Common
   resource_dbsnp:
     type: File
     secondaryFiles:
     - .idx
-  # Variant Recalibration settings
-  var_recal_indels_resources:
-    type:
-      type: array
-      items: ../types/VariantRecalibratorResource.yml#VariantRecalibratorResource
-  var_recal_snps_resources:
-    type:
-      type: array
-      items: ../types/VariantRecalibratorResource.yml#VariantRecalibratorResource
+  # Variant Recalibration - Indels
+  indel_resource_mills: File
 outputs:
   joint_raw_variants:
     type: File
@@ -148,7 +145,10 @@ steps:
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
-      resources: var_recal_indels_resources
+      resources:
+        default:
+          - { name: "mills", known: false, training: true, truth: true, prior: 12, file: indel_resource_mills }
+          - { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: resource_dbsnp }
     out:
       - output_recalibration
       - output_tranches
@@ -166,7 +166,12 @@ steps:
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
-      resources: var_recal_snps_resources
+      resources:
+        default:
+          - { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: snp_resource_hapmap }
+          - { name: "omni", known: false, training: true, truth: true, prior: 12, file: snp_resource_omni }
+          - { name: "1000G", known: false, training: true, truth: false, prior: 10, file: snp_resource_1kg }
+          - { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: resource_dbsnp }
     out:
       - output_recalibration
       - output_tranches

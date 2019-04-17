@@ -6,6 +6,8 @@ requirements:
   SchemaDefRequirement:
     types:
       - $import: ../types/ExomeseqStudyType.yml
+  MultipleInputFeatureRequirement: {}
+  StepInputExpressionRequirement: {}
 inputs:
   study_type:
     type: ../types/ExomeseqStudyType.yml#ExomeseqStudyType
@@ -146,9 +148,13 @@ steps:
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
       resources:
-        default:
-          - { name: "mills", known: false, training: true, truth: true, prior: 12, file: indel_resource_mills }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: resource_dbsnp }
+        source: [indel_resource_mills, resource_dbsnp]
+        linkMerge: merge_flattened
+        valueFrom: >
+          $([
+            { name: "mills", known: false, training: true, truth: true, prior: 12, file: self[0] },
+            { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: self[1] }
+          ])
     out:
       - output_recalibration
       - output_tranches
@@ -167,11 +173,15 @@ steps:
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
       resources:
-        default:
-          - { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: snp_resource_hapmap }
-          - { name: "omni", known: false, training: true, truth: true, prior: 12, file: snp_resource_omni }
-          - { name: "1000G", known: false, training: true, truth: false, prior: 10, file: snp_resource_1kg }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: resource_dbsnp }
+        source: [snp_resource_hapmap, snp_resource_omni, snp_resource_1kg, resource_dbsnp]
+        linkMerge: merge_flattened
+        valueFrom: >
+          $([
+              { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: self[0] },
+              { name: "omni", known: false, training: true, truth: true, prior: 12, file: self[1] },
+              { name: "1000G", known: false, training: true, truth: false, prior: 10, file: self[2] },
+              { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: self[3] },
+          ])
     out:
       - output_recalibration
       - output_tranches

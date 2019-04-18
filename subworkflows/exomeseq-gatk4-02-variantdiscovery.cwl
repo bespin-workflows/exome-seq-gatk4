@@ -8,6 +8,7 @@ requirements:
       - $import: ../types/ExomeseqStudyType.yml
   MultipleInputFeatureRequirement: {}
   StepInputExpressionRequirement: {}
+  InlineJavascriptRequirement: {}
 inputs:
   study_type:
     type: ../types/ExomeseqStudyType.yml#ExomeseqStudyType

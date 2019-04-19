@@ -28,16 +28,28 @@ inputs:
     - .fai
     - ^.dict
   # Variant Recalibration - SNPs
-  snp_resource_hapmap: File
-  snp_resource_omni: File
-  snp_resource_1kg: File
+  snp_resource_hapmap:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_omni:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_1kg:
+    type: File
+    secondaryFiles:
+      - .idx
   # Variant Recalibration - Common
   resource_dbsnp:
     type: File
     secondaryFiles:
     - .idx
   # Variant Recalibration - Indels
-  indel_resource_mills: File
+  indel_resource_mills:
+    type: File
+    secondaryFiles:
+    - .idx
 outputs:
   joint_raw_variants:
     type: File
@@ -146,7 +158,7 @@ steps:
       output_recalibration_filename: generate_joint_filenames/indels_recalibration_filename
       output_tranches_filename: generate_joint_filenames/indels_tranches_filename
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
-      annotations: generate_annotations_snps/annotations
+      annotations: generate_annotations_indels/annotations
       mode: { default: "SNP" }
       resources:
         source: [indel_resource_mills, resource_dbsnp]

@@ -160,6 +160,7 @@ steps:
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_indels/annotations
       mode: { default: "INDEL" }
+      max_gaussians: { default: 4}
       resources:
         source: [indel_resource_mills, resource_dbsnp]
         linkMerge: merge_flattened
@@ -185,6 +186,7 @@ steps:
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
+      max_gaussians: { default: 6}
       resources:
         source: [snp_resource_hapmap, snp_resource_omni, snp_resource_1kg, resource_dbsnp]
         linkMerge: merge_flattened

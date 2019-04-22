@@ -159,7 +159,7 @@ steps:
       output_tranches_filename: generate_joint_filenames/indels_tranches_filename
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_indels/annotations
-      mode: { default: "SNP" }
+      mode: { default: "INDEL" }
       resources:
         source: [indel_resource_mills, resource_dbsnp]
         linkMerge: merge_flattened

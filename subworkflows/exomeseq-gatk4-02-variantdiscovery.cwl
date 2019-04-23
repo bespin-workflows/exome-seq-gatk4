@@ -227,7 +227,7 @@ steps:
       java_opt: { default: "-Xmx5g -Xms5g" }
       output_recalibrated_variants_filename: generate_joint_filenames/combined_recalibrated_variants_filename
       variants: apply_vqsr_indels/output_recalibrated_variants
-      recalibration_file: variant_recalibration_indels/output_recalibration
+      recalibration_file: variant_recalibration_snps/output_recalibration
       tranches_file: variant_recalibration_indels/output_tranches
       truth_sensitivity_filter_level: { default: 99.7 }
       create_output_variant_index: { default: true }

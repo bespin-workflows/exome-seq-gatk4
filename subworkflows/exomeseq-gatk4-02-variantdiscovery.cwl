@@ -15,6 +15,8 @@ inputs:
   name: string
   intervals: File[]?
   interval_padding: int?
+  # target intervals in picard interval_list format (created from intervals bed file)
+  target_interval_list: File
   raw_variants: File[]
   # reference genome, fasta
   reference_genome:
@@ -241,13 +243,6 @@ steps:
       pattern: { default: '.dict'}
     out:
       - extracted
-  extract_intervals_file:
-    run: ../utils/extract-array-file.cwl
-    in:
-      files: intervals
-      index: { default: 0 }
-    out:
-      - extracted
   collect_metrics:
     run: ../tools/GATK4/GATK4-CollectVariantCallingMetrics.cwl
     requirements:
@@ -261,7 +256,7 @@ steps:
       sequence_dictionary: extract_sequence_dict/extracted
       output_metrics_filename_prefix: name
       thread_count: { default: 8 }
-      target_intervals: extract_intervals_file/extracted # Is this OK without interval padding?
+      target_intervals: target_interval_list
     out:
       - output_detail_metrics
       - output_summary_metrics

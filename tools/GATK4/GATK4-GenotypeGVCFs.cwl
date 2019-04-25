@@ -45,7 +45,7 @@ inputs:
   only_output_calls_starting_in_intervals:
     type: boolean?
     inputBinding:
-      prefix: --only_output_calls_starting_in_intervals
+      prefix: --only-output-calls-starting-in-intervals
     doc: "Restrict variant output to sites that start within provided intervals  Default value: false."
   use_new_qual_calculator:
     type: boolean?
@@ -53,14 +53,11 @@ inputs:
       prefix: --use-new-qual-calculator
     doc: "If provided, we will use the new AF model instead of the so-called exact model  Default value: false."
   variants:
-    type:
-      type: array
-      items: File
-      inputBinding:
-        prefix: -V
+    type: File
     inputBinding:
+      prefix: -V
       position: 2
-    doc: "One or more VCF files containing variants  Required."
+    doc: "One VCF file containing variants  Required."
   intervals:
     type:
     - 'null'

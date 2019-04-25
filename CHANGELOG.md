@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Tweaked fastqc and trim\_galore tools to make them cache-able
+- Fixed bugs in variantdiscovery subworkflow, adds CombineGVCFs step to combine variants. 
 
 ## [2.0.0] - 2019-03-29
 

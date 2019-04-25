@@ -140,6 +140,7 @@ steps:
       name: library
       intervals: target_intervals
       interval_padding: interval_padding
+      target_interval_list: prepare_reference_data/target_interval_list
       raw_variants: preprocessing/raw_variants
       reference_genome: reference_genome
       snp_resource_hapmap: snp_resource_hapmap

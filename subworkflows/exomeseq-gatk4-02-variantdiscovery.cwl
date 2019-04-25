@@ -6,12 +6,17 @@ requirements:
   SchemaDefRequirement:
     types:
       - $import: ../types/ExomeseqStudyType.yml
+  MultipleInputFeatureRequirement: {}
+  StepInputExpressionRequirement: {}
+  InlineJavascriptRequirement: {}
 inputs:
   study_type:
     type: ../types/ExomeseqStudyType.yml#ExomeseqStudyType
   name: string
   intervals: File[]?
   interval_padding: int?
+  # target intervals in picard interval_list format (created from intervals bed file)
+  target_interval_list: File
   raw_variants: File[]
   # reference genome, fasta
   reference_genome:
@@ -25,16 +30,28 @@ inputs:
     - .fai
     - ^.dict
   # Variant Recalibration - SNPs
-  snp_resource_hapmap: File
-  snp_resource_omni: File
-  snp_resource_1kg: File
+  snp_resource_hapmap:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_omni:
+    type: File
+    secondaryFiles:
+    - .idx
+  snp_resource_1kg:
+    type: File
+    secondaryFiles:
+      - .idx
   # Variant Recalibration - Common
   resource_dbsnp:
     type: File
     secondaryFiles:
     - .idx
   # Variant Recalibration - Indels
-  indel_resource_mills: File
+  indel_resource_mills:
+    type: File
+    secondaryFiles:
+    - .idx
 outputs:
   joint_raw_variants:
     type: File
@@ -84,6 +101,18 @@ steps:
       - indels_tranches_filename
       - indels_recalibrated_variants_filename
       - combined_recalibrated_variants_filename
+  combine_variants:
+    run: ../tools/GATK4/GATK4-CombineGVCFs.cwl
+    requirements:
+      - class: ResourceRequirement
+        coresMin: 2
+        ramMin: 10240
+    in:
+      reference: reference_genome
+      output_vcf_filename: generate_joint_filenames/raw_variants_filename
+      variants: raw_variants
+    out:
+      - output_vcf
   joint_genotyping:
     run: ../tools/GATK4/GATK4-GenotypeGVCFs.cwl
     requirements:
@@ -97,7 +126,7 @@ steps:
       annotation_groups: { default: ['StandardAnnotation','AS_StandardAnnotation'] }
       only_output_calls_starting_in_intervals: { default: true }
       use_new_qual_calculator: { default: true }
-      variants: raw_variants
+      variants: combine_variants/output_vcf
       intervals: intervals
       interval_padding: interval_padding
       java_opt: { default: "-Xmx5g -Xms5g" }
@@ -131,12 +160,17 @@ steps:
       output_recalibration_filename: generate_joint_filenames/indels_recalibration_filename
       output_tranches_filename: generate_joint_filenames/indels_tranches_filename
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
-      annotations: generate_annotations_snps/annotations
-      mode: { default: "SNP" }
+      annotations: generate_annotations_indels/annotations
+      mode: { default: "INDEL" }
+      max_gaussians: { default: 4}
       resources:
-        default:
-          - { name: "mills", known: false, training: true, truth: true, prior: 12, file: indel_resource_mills }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: resource_dbsnp }
+        source: [indel_resource_mills, resource_dbsnp]
+        linkMerge: merge_flattened
+        valueFrom: >
+          $([
+            { name: "mills", known: false, training: true, truth: true, prior: 12, file: self[0] },
+            { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: self[1] }
+          ])
     out:
       - output_recalibration
       - output_tranches
@@ -154,12 +188,17 @@ steps:
       tranches: { default: ["100.0", "99.95", "99.9", "99.8", "99.6", "99.5", "99.4", "99.3", "99.0", "98.0", "97.0", "90.0"] }
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
+      max_gaussians: { default: 6}
       resources:
-        default:
-          - { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: snp_resource_hapmap }
-          - { name: "omni", known: false, training: true, truth: true, prior: 12, file: snp_resource_omni }
-          - { name: "1000G", known: false, training: true, truth: false, prior: 10, file: snp_resource_1kg }
-          - { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: resource_dbsnp }
+        source: [snp_resource_hapmap, snp_resource_omni, snp_resource_1kg, resource_dbsnp]
+        linkMerge: merge_flattened
+        valueFrom: >
+          $([
+              { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: self[0] },
+              { name: "omni", known: false, training: true, truth: true, prior: 12, file: self[1] },
+              { name: "1000G", known: false, training: true, truth: false, prior: 10, file: self[2] },
+              { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: self[3] },
+          ])
     out:
       - output_recalibration
       - output_tranches
@@ -190,8 +229,8 @@ steps:
       java_opt: { default: "-Xmx5g -Xms5g" }
       output_recalibrated_variants_filename: generate_joint_filenames/combined_recalibrated_variants_filename
       variants: apply_vqsr_indels/output_recalibrated_variants
-      recalibration_file: variant_recalibration_indels/output_recalibration
-      tranches_file: variant_recalibration_indels/output_tranches
+      recalibration_file: variant_recalibration_snps/output_recalibration
+      tranches_file: variant_recalibration_snps/output_tranches
       truth_sensitivity_filter_level: { default: 99.7 }
       create_output_variant_index: { default: true }
       mode: { default: "SNP" }
@@ -202,13 +241,6 @@ steps:
     in:
       file: reference_genome
       pattern: { default: '.dict'}
-    out:
-      - extracted
-  extract_intervals_file:
-    run: ../utils/extract-array-file.cwl
-    in:
-      files: intervals
-      index: { default: 0 }
     out:
       - extracted
   collect_metrics:
@@ -224,7 +256,7 @@ steps:
       sequence_dictionary: extract_sequence_dict/extracted
       output_metrics_filename_prefix: name
       thread_count: { default: 8 }
-      target_intervals: extract_intervals_file/extracted # Is this OK without interval padding?
+      target_intervals: target_interval_list
     out:
       - output_detail_metrics
       - output_summary_metrics

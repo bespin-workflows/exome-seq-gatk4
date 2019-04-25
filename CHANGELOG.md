@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Tweaked fastqc and trim\_galore tools to make them cache-able
+
 ## [2.0.0] - 2019-03-29
 
 ### Added
@@ -28,5 +30,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release of exomeseq-gatk4 preprocessing workflow, migrated from exomeseq-gatk4-preprocessing.cwl in [bespin-cwl v0.9.4](https://github.com/Duke-GCB/bespin-cwl/releases/tag/v0.9.4)
 
 [Unreleased]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.0...release-2.0
-[2.0.0]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.0...v1.0.0
+[2.0.0]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/bespin-workflows/exomeseq-gatk4/releases/tag/v1.0.0

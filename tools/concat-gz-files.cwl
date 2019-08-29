@@ -5,6 +5,7 @@ requirements:
     listing:
       - entryname: combinefiles.sh
         entry: |
+          set -o pipefail
           if [ "$#" -eq 1 ]; then
             cat "$@"
           else

@@ -167,7 +167,7 @@ steps:
     run: ../tools/GATK4/GATK4-MarkDuplicates.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 16384
+        ramMin: 49152
         outdirMin: 12288
         tmpdirMin: 12288
     in:
@@ -187,7 +187,7 @@ steps:
     run: ../tools/GATK4/GATK4-BaseRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 8192
+        ramMin: 16384
     in:
       reference: reference_genome
       input_bam: mark_duplicates/output_dedup_bam_file

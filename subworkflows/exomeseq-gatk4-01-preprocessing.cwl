@@ -101,7 +101,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 1
-        ramMin: 1024
+        ramMin: 4096
     scatter: [files, output_filename]
     scatterMethod: dotproduct
     in:

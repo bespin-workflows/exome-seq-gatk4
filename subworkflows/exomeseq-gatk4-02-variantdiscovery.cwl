@@ -149,7 +149,7 @@ steps:
     out:
       - annotations
   variant_recalibration_indels:
-    run: ../tools/GATK4/GATK4-VariantRecalibrator.cwl
+    run: ../tools/GATK4/GATK4-VariantRecalibrator-Indels.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2
@@ -163,19 +163,13 @@ steps:
       annotations: generate_annotations_indels/annotations
       mode: { default: "INDEL" }
       max_gaussians: { default: 4}
-      resources:
-        source: [indel_resource_mills, resource_dbsnp]
-        linkMerge: merge_flattened
-        valueFrom: >
-          $([
-            { name: "mills", known: false, training: true, truth: true, prior: 12, file: self[0] },
-            { name: "dbsnp", known: true, training: false, truth: false, prior: 2, file: self[1] }
-          ])
+      resource_mills: indel_resource_mills
+      resource_dbsnp: resource_dbsnp
     out:
       - output_recalibration
       - output_tranches
   variant_recalibration_snps:
-    run: ../tools/GATK4/GATK4-VariantRecalibrator.cwl
+    run: ../tools/GATK4/GATK4-VariantRecalibrator-SNPs.cwl
     requirements:
       - class: ResourceRequirement
         coresMin: 2
@@ -189,16 +183,10 @@ steps:
       annotations: generate_annotations_snps/annotations
       mode: { default: "SNP" }
       max_gaussians: { default: 6}
-      resources:
-        source: [snp_resource_hapmap, snp_resource_omni, snp_resource_1kg, resource_dbsnp]
-        linkMerge: merge_flattened
-        valueFrom: >
-          $([
-              { name: "hapmap", known: false, training: true, truth: true, prior: 15, file: self[0] },
-              { name: "omni", known: false, training: true, truth: true, prior: 12, file: self[1] },
-              { name: "1000G", known: false, training: true, truth: false, prior: 10, file: self[2] },
-              { name: "dbsnp", known: true, training: false, truth: false, prior: 7, file: self[3] },
-          ])
+      resource_hapmap: snp_resource_hapmap
+      resource_omni: snp_resource_omni
+      resource_1kg: snp_resource_1kg
+      resource_dbsnp: resource_dbsnp
     out:
       - output_recalibration
       - output_tranches

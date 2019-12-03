@@ -101,7 +101,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 1
-        ramMin: 8192
+        ramMin: 1024
     scatter: [files, output_filename]
     scatterMethod: dotproduct
     in:
@@ -114,7 +114,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 4
-        ramMin: 24576
+        ramMin: 3072
     scatter: input_fastq_file
     in:
       input_fastq_file: combine_reads/output
@@ -167,7 +167,7 @@ steps:
     run: ../tools/GATK4/GATK4-MarkDuplicates.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 49152
+        ramMin: 32768
         outdirMin: 12288
         tmpdirMin: 12288
     in:
@@ -187,7 +187,7 @@ steps:
     run: ../tools/GATK4/GATK4-BaseRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 16384
+        ramMin: 8192
     in:
       reference: reference_genome
       input_bam: mark_duplicates/output_dedup_bam_file
@@ -202,7 +202,7 @@ steps:
     run: ../tools/GATK4/GATK4-ApplyBQSR.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 12288
+        ramMin: 6144
     in:
       reference: reference_genome
       input_bam: mark_duplicates/output_dedup_bam_file
@@ -219,7 +219,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 1
-        ramMin: 24576
+        ramMin: 14336
     in:
       reference: reference_genome
       input_bam: recalibrate_02_apply_bqsr/output_recalibrated_bam

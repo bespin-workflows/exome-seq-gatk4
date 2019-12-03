@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed variant recalibration for Indels and SNPs to hard code resource values.
   This is to compatible with toil due to a bug: https://github.com/DataBiosphere/toil/issues/2814
-- Increased memory requirements for some tools to fix out of memory errors when running under toil/slurm.
-  These requirements may be higher than necessary for workflow runners outside of toil.
+- Increased memory requirements for MarkDuplicates to fix out of memory errors when running under toil/slurm.
 
 ## [2.0.1] - 2019-04-30
 

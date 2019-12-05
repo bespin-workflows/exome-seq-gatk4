@@ -219,7 +219,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 1
-        ramMin: 14336
+        ramMin: 18432
     in:
       reference: reference_genome
       input_bam: recalibrate_02_apply_bqsr/output_recalibrated_bam

@@ -15,31 +15,6 @@
   "annotations": ["FS", "ReadPosRankSum", "MQRankSum", "QD", "SOR", "DP"],
   "mode": "INDEL",
   "max_gaussians": 4,
-  "resources": [
-    {
-      "name": "mills",
-      "known": false,
-      "training": true,
-      "truth": true,
-      "prior": 12,
-      "file": { "basename": "mills.vcf", "class": "File", "contents": "mills" }
-    },
-    {
-      "name": "axiomPoly",
-      "known": false,
-      "training": true,
-      "truth": false,
-      "prior": 10,
-      "file": { "basename": "axiomPoly.vcf", "class": "File", "contents": "axiomPoly" }
-    },
-    {
-      "name": "dbsnp",
-      "known": true,
-      "training": false,
-      "truth": false,
-      "prior":2,
-      "file": { "basename": "dbSNP.vcf", "class": "File", "contents": "dbSNP" }
-    }
-  ]
-
+  "resource_mills": { "basename": "mills.vcf", "class": "File", "contents": "mills" },
+  "resource_dbsnp": { "basename": "dbSNP.vcf", "class": "File", "contents": "dbSNP" }
 }

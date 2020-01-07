@@ -65,36 +65,15 @@ inputs:
     inputBinding:
       prefix: --max-gaussians
       position: 8
-    doc: "Max number of Gaussians for the positive model  Default value: 8."
-  resources: # This is a complex record type that cannot be represented into command-line args, so we mark input but produce binding as an expression
-    inputBinding:
-      position: 9
-    type:
-      type: array
-      items:
-        type: record
-        name: resource
-        fields:
-          name: { type: string }
-          known: { type: boolean }
-          training: { type: boolean }
-          truth: { type: boolean }
-          prior: { type: int }
-          file: { type: File }
-      inputBinding:
-        prefix: '-resource'
-        valueFrom: >
-          ${
-            function makeResourceLine(resource) {
-              return resource.name +
-              ',known=' + (resource.known ? 'true' : 'false') +
-              ',training=' + (resource.training ? 'true' : 'false') +
-              ',truth=' + (resource.truth ? 'true' : 'false') +
-              ',prior=' + resource.prior +
-              ':' + resource.file.path;
-            }
-            return makeResourceLine(self);
-          }
+  resource_mills:
+    type: File
+    secondaryFiles:
+    - .idx
+    doc: hapmap reference data
+  resource_dbsnp:
+    type: File
+    secondaryFiles:
+    - .idx
   java_opt:
     type: string
     doc: "String of options to pass to JVM at runtime"
@@ -102,6 +81,7 @@ inputs:
       prefix: "--java-options"
       position: -1 # before the tool name
       shellQuote: true
+
 outputs:
   output_recalibration:
     type: File
@@ -114,7 +94,12 @@ outputs:
     outputBinding:
       glob: $(inputs.output_tranches_filename)
 
-
 arguments:
-- valueFrom: VariantRecalibrator
-  position: 0
+  - VariantRecalibrator
+
+  - -resource
+  - "mills,known=false,training=true,truth=true,prior=12.0:$(inputs.resource_mills.path)"
+
+  - -resource
+  - "dbsnp,known=true,training=false,truth=false,prior=2.0:$(inputs.resource_dbsnp.path)"
+

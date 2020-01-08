@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2020-01-08
+
 - Changed variant recalibration for Indels and SNPs to hard code resource values.
   This is to compatible with toil due to a bug: https://github.com/DataBiosphere/toil/issues/2814
 - Increased memory requirements for MarkDuplicates to fix out of memory errors when running under toil/slurm.
-## [2.0.2] - 2109-08-29
+
+## [2.0.2] - 2019-08-29
 
 ### Changed
 
@@ -43,7 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of exomeseq-gatk4 preprocessing workflow, migrated from exomeseq-gatk4-preprocessing.cwl in [bespin-cwl v0.9.4](https://github.com/Duke-GCB/bespin-cwl/releases/tag/v0.9.4)
 
-[Unreleased]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.2...release-2.0
+[Unreleased]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.3...release-2.0
+[2.0.3]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/bespin-workflows/exomeseq-gatk4/compare/v1.0.0...v2.0.0

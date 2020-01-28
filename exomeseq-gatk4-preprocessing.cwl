@@ -55,6 +55,10 @@ outputs:
     type: File
     outputSource: preprocessing/markduplicates_bam
     doc: "BAM and bai files from markduplicates"
+  markduplicates_metrics:
+    type: File
+    outputSource: preprocessing/markduplicates_metrics
+    doc: "BAM and bai files from markduplicates"
   recalibration_table:
     type: File
     outputSource: preprocessing/recalibration_table
@@ -99,6 +103,7 @@ steps:
       - fastqc_reports
       - trim_reports
       - markduplicates_bam
+      - markduplicates_metrics
       - recalibration_table
       - recalibrated_reads
       - raw_variants

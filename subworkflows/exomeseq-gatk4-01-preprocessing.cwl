@@ -56,6 +56,9 @@ outputs:
   markduplicates_bam:
     type: File
     outputSource: mark_duplicates/output_dedup_bam_file
+  markduplicates_metrics:
+    type: File
+    outputSource: mark_duplicates/output_metrics_file
   # Recalibration
   recalibration_table:
     type: File

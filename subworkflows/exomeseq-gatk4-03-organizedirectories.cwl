@@ -16,9 +16,6 @@ outputs:
   fastp_json_reports_dir:
     type: Directory
     outputSource: org_fastp_json_reports/outdir
-  trim_reports_dir:
-    type: Directory
-    outputSource: org_trim_reports/outdir
   bams_markduplicates_dir:
     type: Directory
     outputSource: org_bams_markduplicates/outdir

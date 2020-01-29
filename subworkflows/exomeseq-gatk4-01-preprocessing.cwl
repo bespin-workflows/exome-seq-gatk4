@@ -121,7 +121,7 @@ steps:
       ramMin: 2048
     in:
       reads: combine_reads/output
-      trimmed_reads_filenames: file_pair_details/trimmed_reads_output_filenames
+      trimmed_reads_filenames: generate_sample_filenames/trimmed_reads_output_filenames
       report_base_filename: file_pair_details/read_pair_name
       threads: { default: 4 }
     out:

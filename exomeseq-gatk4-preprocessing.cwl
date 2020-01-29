@@ -47,11 +47,11 @@ inputs:
 outputs:
   fastp_html_report:
     type: File
-    outputSource: preprocessing/fastp_html_reports
+    outputSource: preprocessing/fastp_html_report
     doc: "QC/Trim report from fastp in HTML format"
   fastp_json_report:
     type: File
-    outputSource: fastp/json_report
+    outputSource: preprocessing/fastp_json_report
     doc: "QC/Trim report from fastp in JSON format"
   markduplicates_bam:
     type: File

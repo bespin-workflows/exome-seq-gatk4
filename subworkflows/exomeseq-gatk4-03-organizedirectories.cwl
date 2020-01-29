@@ -8,6 +8,7 @@ inputs:
   trim_reports:
     type: { type: array, items: { type: array, items: File } }
   bams_markduplicates: File[]
+  metrics_markduplicates: File[]
   raw_variants: File[]
   bams_recalibrated: File[]
 outputs:
@@ -20,6 +21,9 @@ outputs:
   bams_markduplicates_dir:
     type: Directory
     outputSource: org_bams_markduplicates/outdir
+  metrics_markduplicates_dir:
+    type: Directory
+    outputSource: org_metrics_markduplicates/outdir
   raw_variants_dir:
     type: Directory
     outputSource: org_raw_variants/outdir
@@ -49,6 +53,14 @@ steps:
       name:
         default: 'bams-markduplicates'
       files: bams_markduplicates
+    out:
+      - outdir
+  org_metrics_markduplicates:
+    run: ../utils/files-to-directory.cwl
+    in:
+      name:
+        default: 'metrics-markduplicates'
+      files: metrics_markduplicates
     out:
       - outdir
   org_raw_variants:

@@ -58,7 +58,7 @@ outputs:
   markduplicates_metrics:
     type: File
     outputSource: preprocessing/markduplicates_metrics
-    doc: "BAM and bai files from markduplicates"
+    doc: "metrics file from markduplicates"
   recalibration_table:
     type: File
     outputSource: preprocessing/recalibration_table

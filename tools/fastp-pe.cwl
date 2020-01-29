@@ -38,11 +38,11 @@ outputs:
   html_report:
     type: File
     outputBinding:
-      glob: $(inputs.report_prefix + ".html")
+      glob: $(inputs.report_base_filename + ".html")
   json_report:
     type: File
     outputBinding:
-      glob: $(inputs.report_prefix + ".json")
+      glob: $(inputs.report_base_filename + ".json")
 
 baseCommand: fastp
 arguments:
@@ -55,9 +55,9 @@ arguments:
   - "-o"
   - $(inputs.trimmed_reads_filenames[1])
   - "-j"
-  - $(inputs.report_prefix + ".json")
+  - $(inputs.report_base_filename + ".json")
   - "-h"
-  - $(inputs.report_prefix + ".html")
+  - $(inputs.report_base_filename + ".html")
 
 $namespaces:
   s: https://schema.org/

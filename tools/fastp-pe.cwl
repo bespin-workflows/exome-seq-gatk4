@@ -2,6 +2,9 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: 'quay.io/biocontainers/fastp:0.20.0--hdbcaa40_0'
@@ -32,22 +35,14 @@ inputs:
     doc: "read2 output file name (string [=]). The output will be gzip-compressed if its file name ends with .gz"
     inputBinding:
       prefix: '-o'
-  html_report_filename:
-    type: string?
-    doc: "the html format report file name (string [=fastp.html])"
-    inputBinding:
-      prefix: '-h'
-  json_report_filename:
-    type: string?
-    doc: "the json format report file name (string [=fastp.json])"
-    inputBinding:
-      prefix: '-j'
+  report_base_filename:
+    type: string
+    doc: "Prefix to use for HTML and JSON report files"
   threads:
     type: int?
     doc: "worker thread number, default is 2 (int [=2])"
     inputBinding:
       prefix: '-w'
-
 
 outputs:
   trimmed_read1:
@@ -61,15 +56,14 @@ outputs:
   html_report:
     type: File
     outputBinding:
-      glob: "*.html"
+      glob: $(inputs.report_prefix + ".html")
   json_report:
     type: File
     outputBinding:
-      glob: "*.json"
-
+      glob: $(inputs.report_prefix + ".json")
 
 baseCommand: fastp
-
+arguments: ["-j", $(inputs.report_prefix + ".json"), "-h", $(inputs.report_prefix + ".html")]
 $namespaces:
   s: https://schema.org/
 

@@ -47,12 +47,12 @@ inputs:
     secondaryFiles:
     - .idx
 outputs:
-  fastqc_reports:
-    type: File[]
-    outputSource: qc/output_qc_report
-  trim_reports:
-    type: File[]
-    outputSource: trim/trim_reports
+  fastp_html_report:
+    type: File
+    outputSource: fastp/html_report
+  fastp_json_report:
+    type: File
+    outputSource: fastp/json_report
   markduplicates_bam:
     type: File
     outputSource: mark_duplicates/output_dedup_bam_file
@@ -91,6 +91,7 @@ steps:
       sample_name: file_pair_details/read_pair_name
     out:
       - combined_reads_output_filenames
+      - trimmed_reads_output_filenames
       - mapped_reads_output_filename
       - sorted_reads_output_filename
       - dedup_reads_output_filename
@@ -112,32 +113,21 @@ steps:
        output_filename: generate_sample_filenames/combined_reads_output_filenames
     out:
        - output
-  qc:
-    run: ../tools/fastqc.cwl
+  fastp:
+    run: ../tools/fastp-pe.cwl
     requirements:
-      - class: ResourceRequirement
-        coresMin: 4
-        ramMin: 3072
-    scatter: input_fastq_file
-    in:
-      input_fastq_file: combine_reads/output
-      threads:
-        default: 4
-    out:
-      - output_qc_report
-  trim:
-    run: ../tools/trim_galore.cwl
-    requirements:
-      - class: ResourceRequirement
-        coresMin: 4
-        ramMin: 8192
+    - class: ResourceRequirement
+      coresMin: 4
+      ramMin: 2048
     in:
       reads: combine_reads/output
-      paired:
-        default: true
+      trimmed_reads_filenames: file_pair_details/trimmed_reads_output_filenames
+      report_base_filename: file_pair_details/read_pair_name
+      threads: { default: 4 }
     out:
       - trimmed_reads
-      - trim_reports
+      - html_report
+      - json_report
   map:
     run: ../tools/gitc-bwa-mem-samtools.cwl
     requirements:
@@ -147,7 +137,7 @@ steps:
         outdirMin: 12288
         tmpdirMin: 12288
     in:
-      reads: trim/trimmed_reads
+      reads: fastp/trimmed_reads
       reference: reference_genome
       read_group_header: file_pair_details/read_group_header
       output_filename: generate_sample_filenames/mapped_reads_output_filename

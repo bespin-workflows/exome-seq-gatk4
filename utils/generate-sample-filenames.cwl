@@ -10,6 +10,7 @@ inputs:
   sample_name: string
 outputs:
   combined_reads_output_filenames: string[]
+  trimmed_reads_output_filenames: string[]
   mapped_reads_output_filename: string
   sorted_reads_output_filename: string
   dedup_reads_output_filename: string
@@ -32,6 +33,10 @@ expression: >
       combined_reads_output_filenames: [
         makeFilename(base, 'R1', 'fastq.gz'),
         makeFilename(base, 'R2', 'fastq.gz'),
+      ],
+      trimmed_reads_output_filenames: [
+        makeFilename(base, 'R1-trimmed', 'fastq.gz'),
+        makeFilename(base, 'R2-trimmed', 'fastq.gz'),
       ],
       mapped_reads_output_filename: makeFilename(base, 'mapped', 'bam'),
       sorted_reads_output_filename: makeFilename(base, 'sorted', 'bam'),

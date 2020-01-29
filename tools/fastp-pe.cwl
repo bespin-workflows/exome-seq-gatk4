@@ -15,26 +15,12 @@ hints:
         s:citation: https://doi.org/10.1093/bioinformatics/bty560
 
 inputs:
-  read1:
-    type: File
-    doc: "read1 input file name (string [=])"
-    inputBinding:
-      prefix: '-i'
-  read2:
-    type: File
-    doc: "read2 input file name (string [=])"
-    inputBinding:
-      prefix: '-I'
-  trimmed_read1_filename:
-    type: string
-    doc: "read1 output file name (string [=]). The output will be gzip-compressed if its file name ends with .gz"
-    inputBinding:
-      prefix: '-O'
-  trimmed_read2_filename:
-    type: string
-    doc: "read2 output file name (string [=]). The output will be gzip-compressed if its file name ends with .gz"
-    inputBinding:
-      prefix: '-o'
+  reads:
+    type: File[]
+    doc: "read1 and read2 input files array"
+  trimmed_reads_filenames:
+    type: string[]
+    doc: "Array of output file names. The output will be gzip-compressed if its file name ends with .gz"
   report_base_filename:
     type: string
     doc: "Prefix to use for HTML and JSON report files"
@@ -45,14 +31,10 @@ inputs:
       prefix: '-w'
 
 outputs:
-  trimmed_read1:
-    type: File
+  trimmed_reads:
+    type: File[]
     outputBinding:
-      glob: $(inputs.trimmed_read1_filename)
-  trimmed_read2:
-    type: File
-    outputBinding:
-      glob: $(inputs.trimmed_read2_filename)
+      glob: $(inputs.trimmed_reads_filenames)
   html_report:
     type: File
     outputBinding:
@@ -63,11 +45,22 @@ outputs:
       glob: $(inputs.report_prefix + ".json")
 
 baseCommand: fastp
-arguments: ["-j", $(inputs.report_prefix + ".json"), "-h", $(inputs.report_prefix + ".html")]
+arguments:
+  - "-I"
+  - $(inputs.reads[0])
+  - "-i"
+  - $(inputs.reads[1])
+  - "-O"
+  - $(inputs.trimmed_reads_filenames[0])
+  - "-o"
+  - $(inputs.trimmed_reads_filenames[1])
+  - "-j"
+  - $(inputs.report_prefix + ".json")
+  - "-h"
+  - $(inputs.report_prefix + ".html")
+
 $namespaces:
   s: https://schema.org/
 
 $schemas:
  - https://schema.org/docs/schema_org_rdfa.html
-
-# CPUs: same as threads. mem usage: 1.1GB

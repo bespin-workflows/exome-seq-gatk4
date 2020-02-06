@@ -11,7 +11,7 @@ hints:
   - class: SoftwareRequirement
     packages:
       fastp:
-        version: [ "0.20.0-0" ]
+        version: [ "0.20.0" ]
         s:citation: https://doi.org/10.1093/bioinformatics/bty560
 
 inputs:

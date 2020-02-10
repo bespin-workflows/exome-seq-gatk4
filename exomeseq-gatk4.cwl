@@ -69,12 +69,12 @@ inputs:
     secondaryFiles:
     - .idx
 outputs:
-  fastqc_reports_dir:
+  fastp_html_reports_dir:
     type: Directory
-    outputSource: organize_directories/fastqc_reports_dir
-  trim_reports_dir:
+    outputSource: organize_directories/fastp_html_reports_dir
+  fastp_json_reports_dir:
     type: Directory
-    outputSource: organize_directories/trim_reports_dir
+    outputSource: organize_directories/fastp_json_reports_dir
   raw_variants_dir:
     type: Directory
     outputSource: organize_directories/raw_variants_dir
@@ -130,8 +130,8 @@ steps:
       known_sites: known_sites
       resource_dbsnp: resource_dbsnp
     out:
-      - fastqc_reports
-      - trim_reports
+      - fastp_html_report
+      - fastp_json_report
       - markduplicates_bam
       - markduplicates_metrics
       - recalibration_table
@@ -166,15 +166,15 @@ steps:
   organize_directories:
     run: subworkflows/exomeseq-gatk4-03-organizedirectories.cwl
     in:
-      fastqc_reports: preprocessing/fastqc_reports
-      trim_reports: preprocessing/trim_reports
+      fastp_html_reports: preprocessing/fastp_html_report
+      fastp_json_reports: preprocessing/fastp_json_report
       bams_markduplicates: preprocessing/markduplicates_bam
       metrics_markduplicates: preprocessing/markduplicates_metrics
       raw_variants: preprocessing/raw_variants
       bams_recalibrated: preprocessing/recalibrated_reads
     out:
-      - fastqc_reports_dir
-      - trim_reports_dir
+      - fastp_html_reports_dir
+      - fastp_json_reports_dir
       - bams_markduplicates_dir
       - metrics_markduplicates_dir
       - raw_variants_dir

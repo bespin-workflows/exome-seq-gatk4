@@ -3,21 +3,19 @@
 cwlVersion: v1.0
 class: Workflow
 inputs:
-  fastqc_reports:
-    type: { type: array, items: { type: array, items: File } }
-  trim_reports:
-    type: { type: array, items: { type: array, items: File } }
+  fastp_html_reports: File[]
+  fastp_json_reports: File[]
   bams_markduplicates: File[]
   metrics_markduplicates: File[]
   raw_variants: File[]
   bams_recalibrated: File[]
 outputs:
-  fastqc_reports_dir:
+  fastp_html_reports_dir:
     type: Directory
-    outputSource: org_fastqc_reports/outdir
-  trim_reports_dir:
+    outputSource: org_fastp_html_reports/outdir
+  fastp_json_reports_dir:
     type: Directory
-    outputSource: org_trim_reports/outdir
+    outputSource: org_fastp_json_reports/outdir
   bams_markduplicates_dir:
     type: Directory
     outputSource: org_bams_markduplicates/outdir
@@ -31,20 +29,20 @@ outputs:
     type: Directory
     outputSource: org_bams_recalibrated/outdir
 steps:
-  org_fastqc_reports:
-    run: ../utils/file-pairs-to-directory.cwl
+  org_fastp_html_reports:
+    run: ../utils/files-to-directory.cwl
     in:
       name:
-        default: 'fastqc-reports'
-      file_pairs: fastqc_reports
+        default: 'fastp-html-reports'
+      files: fastp_html_reports
     out:
       - outdir
-  org_trim_reports:
-    run: ../utils/file-pairs-to-directory.cwl
+  org_fastp_json_reports:
+    run: ../utils/files-to-directory.cwl
     in:
       name:
-        default: 'trim-reports'
-      file_pairs: trim_reports
+        default: 'fastp-json-reports'
+      files: fastp_json_reports
     out:
       - outdir
   org_bams_markduplicates:

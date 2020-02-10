@@ -45,12 +45,14 @@ inputs:
     secondaryFiles:
     - .idx
 outputs:
-  fastqc_reports:
-    type: File[]
-    outputSource: preprocessing/fastqc_reports
-  trim_reports:
-    type: File[]
-    outputSource: preprocessing/trim_reports
+  fastp_html_report:
+    type: File
+    outputSource: preprocessing/fastp_html_report
+    doc: "QC/Trim report from fastp in HTML format"
+  fastp_json_report:
+    type: File
+    outputSource: preprocessing/fastp_json_report
+    doc: "QC/Trim report from fastp in JSON format"
   markduplicates_bam:
     type: File
     outputSource: preprocessing/markduplicates_bam
@@ -100,8 +102,8 @@ steps:
       known_sites: known_sites
       resource_dbsnp: resource_dbsnp
     out:
-      - fastqc_reports
-      - trim_reports
+      - fastp_html_report
+      - fastp_json_report
       - markduplicates_bam
       - markduplicates_metrics
       - recalibration_table

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated workflows to use [fastp](https://github.com/OpenGene/fastp) instead of FastQC and Trim Galore for performance.
+
 ## [2.0.3] - 2020-01-08
 
 - Changed variant recalibration for Indels and SNPs to hard code resource values.

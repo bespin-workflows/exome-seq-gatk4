@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated workflows to use [fastp](https://github.com/OpenGene/fastp) instead of FastQC and Trim Galore for performance.
 
+### Removed
+- Removed DP(Depth of coverage) flag from VariantRecalibration because it is inappropriate for exome datasets: https://github.com/bespin-workflows/exomeseq-gatk4/issues/11
+
+### Added
+- Added code to save mark duplicate metric reports
+
 ## [2.0.3] - 2020-01-08
 
 - Changed variant recalibration for Indels and SNPs to hard code resource values.

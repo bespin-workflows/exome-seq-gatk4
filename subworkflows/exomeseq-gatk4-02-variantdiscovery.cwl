@@ -106,7 +106,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: 2
-        ramMin: 10240
+        ramMin: 16384
     in:
       reference: reference_genome
       output_vcf_filename: generate_joint_filenames/raw_variants_filename

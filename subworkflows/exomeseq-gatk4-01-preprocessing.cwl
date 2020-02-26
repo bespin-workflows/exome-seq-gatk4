@@ -180,7 +180,7 @@ steps:
     run: ../tools/GATK4/GATK4-BaseRecalibrator.cwl
     requirements:
       - class: ResourceRequirement
-        ramMin: 8192
+        ramMin: 12288
     in:
       reference: reference_genome
       input_bam: mark_duplicates/output_dedup_bam_file

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Increased BaseRecalibrator memory requirement to 12G.
+- Increased CombineGVCFs memory requirement to 16G.
 - Updated workflows to use [fastp](https://github.com/OpenGene/fastp) instead of FastQC and Trim Galore for performance.
 
 ### Removed

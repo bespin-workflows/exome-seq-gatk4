@@ -1,0 +1,21 @@
+{
+  "reads": [
+    {
+      "basename": "read1.fq",
+      "class": "File",
+      "contents": "read1"
+    },
+    {
+      "basename": "read2.fq",
+      "class": "File",
+      "contents": "read2"
+    }
+  ],
+  "trimmed_reads_filenames": [
+    "read1.fq.gz",
+    "read2.fq.gz"
+  ],
+  "report_base_filename": "base_filename",
+  "detect_adapter_for_pe": false,
+  "threads": 1
+}

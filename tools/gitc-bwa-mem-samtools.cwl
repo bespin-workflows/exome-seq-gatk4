@@ -11,8 +11,8 @@ requirements:
   listing:
     - entryname: bwa-mem-samtools.sh
       entry: |
-        set -o pipefail
-        /usr/gitc/bwa mem $@ | samtools view -1 -
+        set -xo pipefail
+        /usr/gitc/bwa mem $@ | samtools sort -O BAM -
 baseCommand: bash
 arguments: [bwa-mem-samtools.sh]
 
@@ -95,7 +95,7 @@ inputs:
 stdout: $(inputs.output_filename)
 
 outputs:
-  output:
+  output_sorted_bam:
     type: File
     outputBinding:
       glob: $(inputs.output_filename)

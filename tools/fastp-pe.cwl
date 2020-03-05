@@ -24,6 +24,12 @@ inputs:
   report_base_filename:
     type: string
     doc: "Prefix to use for HTML and JSON report files"
+  detect_adapter_for_pe:
+    type: boolean
+    doc: "By default, the adapter sequence auto-detection is enabled for SE data only turn on this option to enable it for PE data"
+    default: true
+    inputBinding:
+      prefix: '--detect_adapter_for_pe'
   threads:
     type: int?
     doc: "worker thread number, default is 2 (int [=2])"

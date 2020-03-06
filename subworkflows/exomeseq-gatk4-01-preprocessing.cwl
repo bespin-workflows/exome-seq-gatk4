@@ -133,7 +133,7 @@ steps:
     requirements:
       - class: ResourceRequirement
         coresMin: $(inputs.threads)
-        ramMin: 14336
+        ramMin: 15336
         outdirMin: 12288
         tmpdirMin: 12288
     in:
@@ -142,18 +142,6 @@ steps:
       read_group_header: file_pair_details/read_group_header
       output_filename: generate_sample_filenames/mapped_reads_output_filename
       threads: threads
-    out:
-      - output
-  sort:
-    run: ../tools/GATK4/GATK4-SortSam.cwl
-    requirements:
-      - class: ResourceRequirement
-        ramMin: 16384
-    in:
-      input_file: map/output
-      output_sorted_bam_filename: generate_sample_filenames/sorted_reads_output_filename
-      sort_order: { default: "coordinate" }
-      java_opt: { default: "-Xms4g" }
     out:
       - output_sorted_bam
   mark_duplicates:
@@ -164,7 +152,7 @@ steps:
         outdirMin: 12288
         tmpdirMin: 12288
     in:
-      input_file: sort/output_sorted_bam
+      input_file: map/output_sorted_bam
       output_filename: generate_sample_filenames/dedup_reads_output_filename
       metrics_filename: generate_sample_filenames/dedup_metrics_output_filename
       validation_stringency: { default: "SILENT" }

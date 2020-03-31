@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Enabling 'detect_adapters_for_pe' for fastp-pe by default
 
+### Added
+
+- Optional 'variant_recalibration_annotations_indels' and 'variant_recalibration_annotations_snps' input fields for main workflow. These override the default annotations used with the gatk4 VariantRecalibrator command.
+
 ## [2.1.1] - 2020-02-26
 
 ### Changed

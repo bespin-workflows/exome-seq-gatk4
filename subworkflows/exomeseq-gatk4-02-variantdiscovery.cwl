@@ -52,6 +52,10 @@ inputs:
     type: File
     secondaryFiles:
     - .idx
+  variant_recalibration_annotations_indels:
+    type: string[]
+  variant_recalibration_annotations_snps:
+    type: string[]
 outputs:
   joint_raw_variants:
     type: File
@@ -136,16 +140,14 @@ steps:
     run: ../utils/generate-variant-recalibration-annotation-set.cwl
     in:
       study_type: study_type
-      base_annotations:
-        default: ["FS", "ReadPosRankSum", "MQRankSum", "QD", "SOR"]
+      base_annotations: variant_recalibration_annotations_indels
     out:
       - annotations
   generate_annotations_snps:
     run: ../utils/generate-variant-recalibration-annotation-set.cwl
     in:
       study_type: study_type
-      base_annotations:
-        default: ["QD", "MQRankSum", "ReadPosRankSum", "FS", "MQ", "SOR"]
+      base_annotations: variant_recalibration_annotations_snps
     out:
       - annotations
   variant_recalibration_indels:

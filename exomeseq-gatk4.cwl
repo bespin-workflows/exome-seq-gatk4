@@ -68,6 +68,12 @@ inputs:
     type: File
     secondaryFiles:
     - .idx
+  variant_recalibration_annotations_indels:
+    type: string[]
+    default: ["FS", "ReadPosRankSum", "MQRankSum", "QD", "SOR"]
+  variant_recalibration_annotations_snps:
+    type: string[]
+    default: ["QD", "MQRankSum", "ReadPosRankSum", "FS", "MQ", "SOR"]
 outputs:
   fastp_html_reports_dir:
     type: Directory
@@ -153,6 +159,8 @@ steps:
       snp_resource_1kg: snp_resource_1kg
       resource_dbsnp: resource_dbsnp
       indel_resource_mills: indel_resource_mills
+      variant_recalibration_annotations_indels: variant_recalibration_annotations_indels
+      variant_recalibration_annotations_snps: variant_recalibration_annotations_snps
     out:
       - joint_raw_variants
       - variant_recalibration_snps_tranches
